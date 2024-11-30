@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Listing</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+    text-align: center;
+    padding: 10px 0; /* Reduced padding */
+    background-color: #ff847a;
+    color: white;
+    font-size: 22px; /* Smaller font size */
+    margin-bottom: 15px; /* Reduced margin */
+}
+
+
+        nav {
+            background-color: #ff847a;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .navbar {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .navbar li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        #animal-list-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        select {
+            margin: 20px 0;
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        #animal-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .animal-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .animal-card:hover {
+            transform: scale(1.05);
+        }
+
+        .animal-card img {
+            width: 100%;
+            height: 190px; /* Adjusted height */
+            object-fit: cover; /* Ensures the image fits the box */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .animal-card img:hover {
+            transform: scale(1.1);
+        }
+
+        .animal-card div {
+            margin-top: 10px;
+        }
+
+        .animal-card h3 {
+            margin: 0 0 10px;
+            font-size: 20px;
+        }
+
+        .animal-card p {
+            font-size: 16px;
+        }
+
+        .animal-card button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .animal-card button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 0.3rem 0.3rem;
+            background-color: #333;
+            color: white;
+            margin-top: auto;
+           font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#location">Location</a></li>
+                <li><a href="donate.html">Donate</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="animal-list-container">
+        <h2>Choose a shelter to adopt from</h2>
+        <select id="shelter-select" onchange="showAnimals()">
+            <option value="none">-- Select Shelter --</option>
+            <option value="Animal Rahat">Animal Rahat</option>
+            <option value="Pune Animal Foundation">Pune Animal Foundation</option>
+            <option value="The Animal Welfare Association Pune">The Animal Welfare Association Pune</option>
+             <option value="Adopt a Pet Pune">Adopt a Pet Pune</option>
+              <option value="SPCA Pune">SPCA Pune</option>
+           
+        </select>
+        <div id="animal-list"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Animal Welfare Organization</p>
+    </footer>
+
+    <script>
+        const shelters = {
+            "Animal Rahat": [
+                {
+                    name: "Buddy",
+                    breed: "Labrador",
+                    age: "6 months",
+                    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvmxn5717iofYEZe2jZGwFyKn8moFZ-sXtbg&s",
+                },
+                {
+                    name: "Luna",
+                    breed: "Beagle",
+                    age: "1 Year",
+                    image: "https://preview.redd.it/adopted-a-1-2-year-old-beagle-recently-v0-4qkhpjjbet1c1.jpg?width=1080&crop=smart&auto=webp&s=c2e2909e193804fefe20a8b3799be5a258929275",
+                },
+               
+               {
+                  name: "Daisy",
+                  breed: "Golden Retriever",
+                  age: "6 years",
+                  image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGyDLp4XESbB0BaiK80tW2-fSw8eTz6A3Xfw&s",
+             },
+         
+            {
+ 
+            name: "Chloe",
+             breed: "Persian cat",
+             age: "2 years",
+             image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTShJFvaUTRzUJpZxM2AU1FVJI3DfDNOd2GBw&s",
+            }
+           ],
+           
+    "Pune Animal Foundation": [
+            {
+             name: "Tweety",
+            breed: "Canary",
+             age: "1 year",
+            image: "https://cdn.britannica.com/02/188002-004-58D1B5AE.jpg",
+             },
+                {
+                    name: "Max",
+                    breed: "German Shepherd",
+                    age: "3 Years",
+                    image: "https://image.petmd.com/files/inline-images/german-shepherd-2.jpg?VersionId=FmkVBA_Eye5tKY1L5bTUimqTuPRdiruu",
+                },
+                {
+                    name: "Bella",
+                    breed: "Siamese",
+                    age: "1 Year",
+                    image: "https://spca.bc.ca/wp-content/uploads/adoption-west-vancouver-branch-cat-dashi-aka-jenny-c.jpg",
+                },
+             
+             {
+               name: "Sunheri",
+               breed: "Domestic Shorthair",
+              age: "5 years",
+            image: "https://www.trupanion.com/images/trupanionwebsitelibraries/pet-blogs/domestic-shorthair-cat-blanket-1-.jpg?sfvrsn=f7134fc_6",
+           }
+            ],
+
+           "The Animal Welfare Association Pune": [
+{
+         name: "Kiana",
+    breed: "Maine Coon",
+    age: "5 years",
+    image:"https://www.whiskas.in/sites/g/files/fnmzdf2051/files/2024-08/shutterstock_2384092615.jpg",
+},
+{
+ 
+                name: "Rio",
+                breed: "Macaw",
+                age: "7 years",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOOpsN5LJFsVOO9cT_v0WNrTtQNj0WE-nBLg&s",
+               },
+              {
+                 name: "Rocky",
+                breed: "Labrador Retriever",
+                age: "3 years",
+               image: "https://upload.wikimedia.org/wikipedia/commons/b/b0/001_American_Pit_Bull_Terrier.jpg",
+              },
+
+{
+    name: "Sheru ",
+    breed: "mix breed",
+    age: "5 months",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrC-FrxiPmHkZZHclWVp_zLXx9GRhZfge2qA&s",
+} ],
+
+"Adopt a Pet Pune": [  {
+                               name: "Sunny",
+                              breed: "Lovebird",
+                              age: "1 year",
+                             image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIokdOsuHjJnfFqZLC9-UARlwezbV6wpIpsw&s",
+},
+{
+    name: "Charlie",
+    breed: "Shih Tzu",
+    age: "6 years",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSe4BezE6DVddlN12RwE0bVedSjJGmbtqaXJw&s",
+},
+{
+                 name: "Sweety",
+                  breed: "Beagle",
+                  age: "6 months",
+             image: "https://image.petmd.com/files/styles/863x625/public/2022-10/beagle-dog.jpg",
+   
+             }
+],
+
+"SPCA Pune": [
+ {
+                name: "Chloe",
+                breed: "Persian cat",
+                age: "2 years",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTShJFvaUTRzUJpZxM2AU1FVJI3DfDNOd2GBw&s",
+            },
+{
+    name: "Coco",
+    breed: "Pomerian",
+    age: "1 year",
+    image: "https://t4.ftcdn.net/jpg/04/34/59/15/360_F_434591514_gb8wat596GIazrT8GLfRnWcumXaMM2Dt.jpg",
+} ],
+        };
+
+        function showAnimals() {
+            const shelterSelect = document.getElementById("shelter-select");
+            const selectedShelter = shelterSelect.value;
+            const animalList = document.getElementById("animal-list");
+            animalList.innerHTML = "";
+
+            if (selectedShelter && shelters[selectedShelter]) {
+                shelters[selectedShelter].forEach(animal => {
+                    animalList.innerHTML += `
+                        <div class="animal-card">
+                            <img src="${animal.image}" alt="${animal.name}" onclick="showPopup('${animal.image}')">
+                            <div>
+                                <h3>${animal.name}</h3>
+                                <p><strong>Breed:</strong> ${animal.breed}</p>
+                                <p><strong>Age:</strong> ${animal.age}</p>
+                                <button onclick="window.location.href='animal_details.html?name=${encodeURIComponent(animal.name)}'">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function showPopup(imageUrl) {
+            const popup = window.open("", "_blank", "width=600,height=400");
+            popup.document.write(`
+                <html>
+                    <head><title>Animal Image</title></head>
+                    <body>
+                        <img src="${imageUrl}" style="width:100%;height:auto;">
+                    </body>
+                </html>
+            `);
+        }
+    </script>
+</body>
+</html>
+
+
+

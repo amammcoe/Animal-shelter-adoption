@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adoption Form</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure body takes the full height of the viewport */
+        }
+
+        /* Navbar Styling */
+        nav {
+            background-color: #ff847a;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .navbar {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .navbar li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #ff847a;
+            color: white;
+        }
+
+        .adoption-form {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 50px;
+            flex-grow: 1; /* Makes the form take up available space */
+        }
+
+        /* Increase space around form elements */
+        .adoption-form h2 {
+            color: #007BFF;
+            text-align: center;
+        }
+
+        .adoption-form input,
+        .adoption-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            resize: none;
+        }
+
+        .adoption-form button {
+            padding: 12px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            width: 200px;
+        }
+
+        .adoption-form button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Thank You Message */
+        #thank-you-message {
+            display: none;
+            color: green;
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 0.5rem 0.5rem;
+            background-color: #333;
+            color: white;
+            font-size: 0.8rem;
+            margin-top: auto; /* Pushes the footer to the bottom */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .adoption-form {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .adoption-form button {
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="animal_listing.html">Adopt a Pet</a></li>
+            <li><a href="donate.html">Donate</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Adoption Form</h1>
+    </header>
+
+    <section class="adoption-form">
+        <h2>Thank you for your interest in adopting an animal!</h2>
+        <form id="adoptForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Enter 10-digit phone number" required>
+
+            <label for="message">Why do you want to adopt this animal?</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+        <p id="thank-you-message"></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Animal Welfare Organization</p>
+    </footer>
+
+    <script>
+        document.getElementById("adoptForm").addEventListener("submit", function(event){
+            event.preventDefault(); // Prevent form submission
+
+            // Show thank you message
+            document.getElementById("thank-you-message").style.display = "block";
+            document.getElementById("thank-you-message").innerText = "Thank you for showing your interest, we will contact you shortly.";
+
+            // Optionally, you can clear the form fields after submission
+            document.getElementById("adoptForm").reset();
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+

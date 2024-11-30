@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Details</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #ff847a;
+            color: white;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        nav {
+            background-color: #ff847a;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .navbar {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .navbar li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        #animal-details-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        #animal-details-container img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 32px;
+            color: #2e6da4;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        button {
+            margin: 10px;
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul class="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="animal_listing.html">Adopt a Pet</a></li>
+                <li><a href="donate.html">Donate</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="animal-details-container">
+        <img src="https://via.placeholder.com/600x300" alt="Animal Image" id="animal-image">
+        <h2 id="animal-name">Animal Name</h2>
+        <p id="animal-breed"><strong>Breed:</strong> Breed Name</p>
+        <p id="animal-age"><strong>Age:</strong> Animal Age</p>
+        <p id="animal-description"><strong>Description:</strong> Animal description goes here.</p>
+
+        <div id="animal-medical-history"></div>
+
+        <div>
+            <button onclick="window.location.href='adoption_form.html'">Adopt</button>
+            <button onclick="window.location.href='animal_listing.html'">Back</button>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const animalName = urlParams.get('name').trim();
+
+        const animals = {
+            "Buddy": {
+                breed: "Labrador",
+                age: "6 months",
+                description: "A playful and friendly puppy.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvmxn5717iofYEZe2jZGwFyKn8moFZ-sXtbg&s",
+                medical_history: {
+                    rescue_status: "Rescued from a local shelter",
+                    vaccinations: ["Rabies (2024)", "Distemper (2024)"],
+                    neutering_status: "Not neutered",
+                    health_conditions: ["No known health issues"],
+                    regular_medications: "None"
+                }
+            },
+            "Sheru": {
+                name: "Sheru",
+                breed: "Mix breed",
+                age: "5 months",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrC-FrxiPmHkZZHclWVp_zLXx9GRhZfge2qA&s",
+                description: "Sheru is an intelligent and loyal dog who loves to work and needs regular mental stimulation.",
+                medical_history: {
+                    rescue_status: "Rescued from a high-kill shelte",
+                    vaccinations: ["Rabies (2023)", "Distemper (2023"],
+                    neutering_status: "Neutered",
+                    health_conditions: ["No health issues"],
+                    regular_medications: "None"
+                }
+            },
+            "Luna": {
+                breed: "Beagle",
+                age: "1 year",
+                description: "A curious and energetic dog.",
+                image: "https://preview.redd.it/adopted-a-1-2-year-old-beagle-recently-v0-4qkhpjjbet1c1.jpg?width=1080&crop=smart&auto=webp&s=c2e2909e193804fefe20a8b3799be5a258929275",
+                medical_history: {
+                     rescue_status: "Rescued from a storm",
+                     vaccinations: ["Rabies (2023)", "Feline Distemper (2023)"],
+                     neutering_status: "Neutered",
+                     health_conditions: ["None"],
+                    regular_medications: "None"
+            }
+        },
+            "Kiana": {
+                breed: "Maine Coon",
+                age: "5 years",
+                description: "Kiana is a large and affectionate cat who loves attention and is gentle with kids",
+                image: "https://www.whiskas.in/sites/g/files/fnmzdf2051/files/2024-08/shutterstock_2384092615.jpg",
+                medical_history: {
+                    rescue_status: "Adopted from a shelter",
+                    vaccinations: ["Rabies (2023)", "Distemper (2023)"],
+                    neutering_status: "Spayed",
+                    health_conditions: ["Healthy"],
+                    regular_medications: "None"
+                }
+            },
+            "Daisy": {
+                breed: "Golden Retriever",
+                age: "6 years",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGyDLp4XESbB0BaiK80tW2-fSw8eTz6A3Xfw&s",
+                description: "Daisy is a gentle and calm dog who loves long walks and playing with her toys.",
+                medical_history: {
+                    rescue_status: "Adopted from a rescue organization",
+                    vaccinations: ["Rabies (2023)", "Distemper (2023)"],
+                    neutering_status: "Spayed",
+                    health_conditions: ["Mild hip dysplasia (managed with supplements)"],
+                    regular_medications: "Joint supplements"
+                }
+            },
+            "Sweety": {
+                name: "Sweety",
+                breed: "Beagle",
+                age: "6 months",
+                image: "https://image.petmd.com/files/styles/863x625/public/2022-10/beagle-dog.jpg",
+                description: "Sweety is an inquisitive and friendly dog who loves to sniff around and explore new areas.",
+                medical_history: {
+                    rescue_status: "Found on the street",
+                    vaccinations: ["Rabies (2023)", "Parvovirus (2023)"],
+                    neutering_status: "Spayed",
+                    health_conditions: ["Mild ear infection (treated)"],
+                    regular_medications: "None"
+                }
+            },
+ "Tweety": {
+                breed: "Canary",
+                age: "1 year",
+                image: "https://cdn.britannica.com/02/188002-004-58D1B5AE.jpg",
+                description: "Tweety is a cheerful and energetic bird who loves to sing and chirp throughout the day.",
+                medical_history: {
+                    rescue_status: "Surrendered by previous owner",
+                    vaccinations: ["None required for species"],
+                    neutering_status: "Not neutered",
+                    health_conditions: ["None"],
+                    regular_medications: "None"
+                }
+            },
+
+"Sunheri": {
+                name: "Sunheri",
+                breed: "Domestic Shorthair",
+                age: "5 years",
+                image: "https://www.trupanion.com/images/trupanionwebsitelibraries/pet-blogs/domestic-shorthair-cat-blanket-1-.jpg?sfvrsn=f7134fc_6",
+                description: "Sunheri is a playful and affectionate cat who loves cuddles and playing with toys.",
+                medical_history: {
+                    rescue_status: "Adopted from a shelter",
+                    vaccinations: ["Rabies (2023)", "Feline Distemper (2023)"],
+                    neutering_status: "Spayed",
+                    health_conditions: ["Mild asthma (controlled with inhaler)"],
+                    regular_medications: "Inhaler (as needed)"
+                }
+            },
+
+            "Chloe": {
+                name: "Chloe",
+                breed: "Persian cat",
+                age: "2 years",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTShJFvaUTRzUJpZxM2AU1FVJI3DfDNOd2GBw&s",
+                description: "Chloe is a calm and independent cat who enjoys lounging in sunny spots and grooming herself.",
+                medical_history: {
+                    rescue_status: "Rescued from a hoarding situation",
+                    vaccinations: ["Rabies (2023)", "Feline Leukemia (2023)"],
+                    neutering_status: "Spayed",
+                    health_conditions: ["None"],
+                    regular_medications: "None",
+                    vet_visits: [
+                        {"date": "2023-05-10", "reason": "Routine checkup"}
+                    ]
+                }
+            },
+            "Max": {
+                name: "Max",
+                breed: "German shepherd",
+                age: "3 years",
+                image: "https://image.petmd.com/files/inline-images/german-shepherd-2.jpg?VersionId=FmkVBA_Eye5tKY1L5bTUimqTuPRdiruu",
+                description: "Max is a friendly, energetic dog who loves to play fetch and is great with children.",
+                medical_history: {
+                    rescue_status: "Rescued from an abandoned home",
+                    vaccinations: ["Rabies (2023)", "Distemper (2023)", "Parvovirus (2023)"],
+                    neutering_status: "Neutered",
+                    health_conditions: ["None"],
+                    regular_medications: "None"
+                }
+            },
+            "Bella": {
+                name: "Bella",
+                breed: "Siamese",
+                age: "1 year",
+                image: "https://spca.bc.ca/wp-content/uploads/adoption-west-vancouver-branch-cat-dashi-aka-jenny-c.jpg",
+                description: "Whiskers is an affectionate cat who loves attention and is always purring.",
+                medical_history: {
+                    rescue_status: "Found as a stray",
+                    vaccinations: ["Rabies (2023)", "Feline Leukemia (2023)"],
+                    neutering_status: "Spayed",
+                    health_conditions: ["No health issues"],
+                    regular_medications: "None"
+                }
+            },
+            "Coco": {
+                name: "Coco",
+                breed: "Pomerian",
+                age: "1 year",
+                image: "https://t4.ftcdn.net/jpg/04/34/59/15/360_F_434591514_gb8wat596GIazrT8GLfRnWcumXaMM2Dt.jpg",
+                description: "Coco is peace loving and caring dog",
+                medical_history: {
+                    rescue_status: "Abandoned by owner",
+                    vaccinations: ["Rabies (2023)", "Feline Leukemia (2023)"],
+                    neutering_status: "Spayed",
+                    health_conditions: ["No health issues"],
+                    regular_medications: "None"
+                }
+            },
+            "Rocky": {
+                name: "Rocky",
+                breed: "Pit Bull",
+                age: "4 years",
+                image: "https://upload.wikimedia.org/wikipedia/commons/b/b0/001_American_Pit_Bull_Terrier.jpg",
+                description: "Rocky is a strong and loving dog who enjoys exercise and loves attention.",
+                medical_history: {
+                    rescue_status: "Rescued from neglect",
+                    vaccinations: ["Rabies (2023)", "Distemper (2023)"],
+                    neutering_status: "Neutered",
+                    health_conditions: ["None"],
+                    regular_medications: "None"
+                }
+            }
+        };
+
+        const animal = animals[animalName];
+
+        if (!animal) {
+            document.getElementById('animal-details-container').innerHTML = "<h2>Sorry, this animal's details are not available.</h2>";
+        } else {
+            document.getElementById('animal-name').textContent = animal.name;
+            document.getElementById('animal-breed').textContent = `Breed: ${animal.breed}`;
+            document.getElementById('animal-age').textContent = `Age: ${animal.age}`;
+            document.getElementById('animal-description').textContent = `Description: ${animal.description}`;
+            document.getElementById('animal-image').src = animal.image;
+
+            let medicalHistoryHtml = "<h3>Medical History</h3><ul>";
+
+            if (animal.medical_history) {
+                medicalHistoryHtml += `<li><strong>Rescue Status:</strong> ${animal.medical_history.rescue_status}</li>`;
+                medicalHistoryHtml += `<li><strong>Vaccinations:</strong> ${animal.medical_history.vaccinations.join(', ')}</li>`;
+                medicalHistoryHtml += `<li><strong>Neutering Status:</strong> ${animal.medical_history.neutering_status}</li>`;
+                medicalHistoryHtml += `<li><strong>Health Conditions:</strong> ${animal.medical_history.health_conditions.join(', ')}</li>`;
+                medicalHistoryHtml += `<li><strong>Regular Medications:</strong> ${animal.medical_history.regular_medications}</li>`;
+            }
+            medicalHistoryHtml += "</ul>";
+            document.getElementById('animal-medical-history').innerHTML = medicalHistoryHtml;
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+   
+
+

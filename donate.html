@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+       header h1 {
+            color: #FFFFFF;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* Navbar Styling */
+        nav {
+            background-color: #ff847a;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .navbar {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .navbar li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            text-align: center;
+            padding: 16px;
+            background-color: #ff847a;
+            color: white;
+        }
+
+        /* Content Area Styling */
+        .content {
+            flex-grow: 1;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .content h2 {
+            color: #28a745;
+        }
+
+        .content p {
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+
+        .donation-options {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .donation-options button, .donation-options input {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .donation-options button:hover, .donation-options input:hover {
+            background-color: #218838;
+        }
+
+        .donation-options input {
+            width: 120px;
+        }
+
+        .thank-you-message {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: green;
+        }
+
+        select {
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        footer {
+            text-align: center;
+            padding: 0.8rem;
+            background-color: #333;
+            color: white;
+            font-size: 0.8rem;
+            margin-top: auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content {
+                margin: 20px;
+                padding: 15px;
+            }
+        }
+    </style>
+    <script>
+        function donate(amount) {
+            const shelter = document.getElementById("shelterSelect").value;
+            if (shelter === "none") {
+                alert("Please select a shelter to donate to.");
+                return;
+            }
+
+            // Show thank you message dynamically
+            document.getElementById("thank-you-message").style.display = "block";
+            document.getElementById("thank-you-message").innerText = 
+                `Thank you for donating ₹${amount} to ${shelter}!`;
+
+            // Clear any custom amount field after donation
+            document.getElementById("customAmount").value = '';
+        }
+
+        function donateCustom() {
+            const amount = document.getElementById("customAmount").value;
+            const shelter = document.getElementById("shelterSelect").value;
+
+            if (shelter === "none") {
+                alert("Please select a shelter to donate to.");
+                return;
+            }
+
+            if (amount && !isNaN(amount) && amount > 0) {
+                donate(amount);
+            } else {
+                alert('Please enter a valid donation amount.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="animal_listing.html">Adopt a Pet</a></li>
+            <li><a href="index.html#about-us">About Us</a></li> <!-- Link to About Us section -->
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Support Our Mission</h1>
+    </header>
+
+    <section class="content">
+        <h2>Donate to Animal Welfare</h2>
+        <p>Your contribution helps us provide food, shelter, and medical care to animals in need. Every small donation makes a huge difference!</p>
+
+        <!-- Shelter Selection Dropdown -->
+        <label for="shelterSelect">Select a Shelter:</label>
+        <select id="shelterSelect">
+            <option value="none">-- Select Shelter --</option>
+            <option value="Animal Rahat">Animal Rahat</option>
+            <option value="Pune Animal Foundation">Pune Animal Foundation</option>
+            <option value="The Animal Welfare Association Pune">The Animal Welfare Association Pune</option>
+            <option value="Adopt a Pet Pune">Adopt a Pet Pune</option>
+            <option value="SPCA Pune">SPCA Pune</option>
+        </select>
+
+        <div class="donation-options">
+            <button onclick="donate(500)">₹500</button>
+            <button onclick="donate(1000)">₹1000</button>
+            <button onclick="donate(2000)">₹2000</button>
+            <button onclick="donate(5000)">₹5000</button>
+        </div>
+
+        <p>Or, donate any amount:</p>
+        <div class="donation-options">
+            <input type="number" id="customAmount" placeholder="Enter amount" />
+            <button onclick="donateCustom()">Donate</button>
+        </div>
+
+        <p>Thank you for your generosity and support!</p>
+
+        <!-- Thank You Message Display -->
+        <div class="thank-you-message" id="thank-you-message"></div>
+    </section>
+
+<footer>
+    <p>&copy; 2024 Animal Welfare Organization</p>
+</footer>
+</body>
+</html>
+
+

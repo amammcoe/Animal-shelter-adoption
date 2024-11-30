@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Shelter Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header Section with Background Image Only for Index Page -->
+    <header style="background-image: url('images/background.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; color: white; padding: 2rem 1rem; text-align: center; position: relative; height: 170px;">
+        <h1>Welcome to Shelter of Hope</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="animal_listing.html">Adopt a Pet</a>
+            <a href="donate.html">Donate</a>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home">
+        <h2>Helping Stray Animals Find Loving Homes</h2>
+        <p>We rescue and care for stray animals, working to find them safe, happy homes.</p>
+    </section>
+
+    <!-- Ratan Tata Section -->
+    <section id="ratan-tata">
+        <div class="quote-section">
+            <img src="https://media.licdn.com/dms/image/v2/C5612AQEVEd-WZzKfoQ/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1550799515538?e=2147483647&v=beta&t=hXFtBifoXAGZocpAtuHOaVBFU3fFZEkf5nCWTUzUMeM" alt="Ratan Tata">
+            <p>"Animals are a gift from above for they truly define the words unconditional love." - Ratan Tata</p>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location">
+        <h2>Find Shelters Near You</h2>
+        <button onclick="getLocation()">Find Nearby Shelters</button>
+        <p id="user-location">Click the button above to allow location access and see shelters nearby. Currently only Pune region</p>
+        <div id="shelters"></div>
+    </section>
+
+    <!-- How to Help Section -->
+    <section id="help">
+        <h2>How to Help</h2>
+        <p>You can support us by donating, volunteering, or sponsoring a pet.</p>
+        <button onclick="alert('Thank you for your interest in volunteering!')">Volunteer</button>
+        <button onclick="alert('Thank you for showing interest in sponsoring an animal!')">Sponsor animal</button>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about-us">
+        <h2>About Us</h2>
+        <p>Our team of volunteers works to rescue, care for, and rehome animals in need.
+              We are a dedicated team of animal lovers who strive to find loving homes for animals in need.</p>
+         <p>Our mission is to connect animals in shelters with kind-hearted people who can provide them 
+              with a safe and caring environment.</p>
+         <p>Join us in making a difference!</p>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>If you have any questions, feel free to reach out to us using the form below:</p>
+        <form class="contact-form">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="submit-button">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Animal Shelter | All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // List of shelters in Pune with their coordinates
+        const shelters = [
+            { name: "Animal Rahat", lat: 18.5162, lon: 73.8520 },
+            { name: "Pune Animal Foundation", lat: 18.5291, lon: 73.8556 },
+            { name: "The Animal Welfare Association Pune", lat: 18.5200, lon: 73.8567 },
+            { name: "Adopt a Pet Pune", lat: 18.5326, lon: 73.8489 },
+            { name: "SPCA Pune", lat: 18.5067, lon: 73.8274 }
+        ];
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                document.getElementById("user-location").innerHTML = "Geolocation is not supported by your browser.";
+            }
+        }
+
+        function showPosition(position) {
+            const userLat = position.coords.latitude;
+            const userLon = position.coords.longitude;
+            document.getElementById("user-location").innerHTML = `Your location: Latitude ${userLat}, Longitude ${userLon}`;
+            findNearbyShelters(userLat, userLon);
+        }
+
+        function showError(error) {
+            document.getElementById("user-location").innerHTML = "Unable to retrieve your location.";
+        }
+
+        function findNearbyShelters(userLat, userLon) {
+            const nearbyShelters = [];
+            const maxDistance = 5; // Maximum distance in kilometers
+
+            shelters.forEach((shelter) => {
+                const distance = calculateDistance(userLat, userLon, shelter.lat, shelter.lon);
+                if (distance <= maxDistance) {
+                    nearbyShelters.push(`<div class="shelter"><h4>${shelter.name}</h4><p>${distance.toFixed(2)} km away</p></div>`);
+                }
+            });
+
+            const shelterContainer = document.getElementById("shelters");
+            shelterContainer.innerHTML = nearbyShelters.length
+                ? nearbyShelters.join("")
+                : "<p>No nearby shelters found within 5 km.</p>";
+        }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radius of the Earth in kilometers
+            const dLat = degreesToRadians(lat2 - lat1);
+            const dLon = degreesToRadians(lon2 - lon1);
+            const a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(degreesToRadians(lat1)) * Math.cos(degreesToRadians(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+
+        function degreesToRadians(degrees) {
+            return degrees * (Math.PI / 180);
+        }
+    </script>
+</body>
+</html>
+
+
